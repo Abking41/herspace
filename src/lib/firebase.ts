@@ -41,8 +41,7 @@ export async function testFirestoreConnection() {
   try {
     await getDocFromServer(doc(db, 'test', 'connection'));
   } catch (error: any) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.warn('Firebase client offline or unreachable.');
-    }
+    // Non-blocking log - never throw during app initialization
+    console.warn('Firestore connection check:', error?.message || error);
   }
 }
