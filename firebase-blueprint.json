@@ -1,0 +1,64 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Personal profile and preferences for the user",
+      "type": "object",
+      "properties": {
+        "userName": { "type": "string" },
+        "avatarSeed": { "type": "string" },
+        "theme": { "type": "string", "enum": ["light", "dark"] },
+        "accentColor": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userName"]
+    },
+    "UserTask": {
+      "title": "UserTask",
+      "description": "Daily tasks and study to-dos",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "priority": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "category", "priority", "dueDate", "completed"]
+    },
+    "UserJournal": {
+      "title": "UserJournal",
+      "description": "Private journal and diary reflections",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "date": { "type": "string" },
+        "mood": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "content", "date", "mood"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document"
+    },
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": "UserTask",
+      "description": "User task items"
+    },
+    "/users/{userId}/journalEntries/{entryId}": {
+      "schema": "UserJournal",
+      "description": "User private journal entries"
+    },
+    "/users/{userId}/{allChildren=**}": {
+      "schema": "UserProfile",
+      "description": "All personal data subcollections scoped to the user"
+    }
+  }
+}
